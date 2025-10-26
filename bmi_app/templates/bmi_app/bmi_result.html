@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Result</title>
+    <link rel="stylesheet" href="{% static 'bmi_app/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 420px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .underweight { background-color: #3498db; } /* Blue */
+        .normal { background-color: #2ecc71; }      /* Green */
+        .overweight { background-color: #f1c40f; }  /* Yellow */
+        .obese { background-color: #e74c3c; }       /* Red */
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        ul li {
+            background: #f7f7f7;
+            margin: 6px 0;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    {% if bmi %}
+        <h2>Your BMI: {{ bmi }}</h2>
+
+        {% if category == "Underweight" %}
+            <span class="badge underweight">{{ category }}</span>
+        {% elif category == "Normal weight" %}
+            <span class="badge normal">{{ category }}</span>
+        {% elif category == "Overweight" %}
+            <span class="badge overweight">{{ category }}</span>
+        {% elif category == "Obese" %}
+            <span class="badge obese">{{ category }}</span>
+        {% endif %}
+
+        {% if diet %}
+            <h3>Diet Plan ({{ diet_type|capfirst }})</h3>
+            <ul>
+                {% for meal, plan in diet.items %}
+                    <li><strong>{{ meal }}:</strong> {{ plan }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'download_bmi_diet' %}?bmi={{ bmi }}&category={{ category }}&diet_type={{ diet_type }}" class="btn">
+                Download BMI & Diet Plan
+            </a>
+        {% else %}
+            <p style="color: red;">Diet plan not available.</p>
+        {% endif %}
+    {% else %}
+        <p>Invalid input. <a href="{% url 'bmi_input' %}">Try again</a></p>
+    {% endif %}
+</div>
+</body>
+</html>

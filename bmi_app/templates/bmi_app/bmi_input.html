@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Input</title>
+    <link rel="stylesheet" href="{% static 'bmi_app/style.css' %}">
+</head>
+<body>
+<div class="card">
+    <h2>Enter Your Details</h2>
+    <form method="POST" action="{% url 'bmi_result' %}">
+    {% csrf_token %}
+    <input type="number" step="0.1" name="weight" placeholder="Weight (kg)" required>
+    <input type="number" step="0.1" name="height" placeholder="Height (cm)" required>
+    
+    <label>
+        <input type="radio" name="diet_type" value="veg" required> Vegetarian
+    </label>
+    <label>
+        <input type="radio" name="diet_type" value="nonveg"> Non-Vegetarian
+    </label>
+
+    <button type="submit">Calculate BMI</button>
+</form>
+
+</div>
+</body>
+</html>
