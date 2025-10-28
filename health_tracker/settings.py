@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = 'your-secret-key-here'
 DEBUG = True
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "your-domain.com", "health-tracker-rri8.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "health-tracker-56h7.onrender.com"]
 
 # Installed apps
 INSTALLED_APPS = [
